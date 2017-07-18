@@ -4,19 +4,23 @@ import FacebookLogin from 'react-facebook-login'
 
 import './App.css';
 
-const responseFacebook = (res) => {
-	console.log('=======FB RES', res)
-}
 
 class App extends Component {
+
+
+responseFacebook (res) {
+	console.log('=======FB RES', res)
+}
   render() {
+	  console.log(process.env.APP_ID)
     return (
       <div className="App">
-		<FacebokLogin
-			appId=process.env.APP_ID
-			autoLoad={true}
-			fields="name,email,manage_pages"
-			callback={responseFacebook} />
+		<FacebookLogin
+			appId='801527833349607'
+			autoLoad
+			fields="name,email"
+			scope="manage_pages"
+			callback={this.responseFacebook} />
 		{/* document.getElementById('')	*/}
       </div>
     );
