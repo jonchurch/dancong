@@ -1,4 +1,5 @@
 node_modules
+/_project/
+
 .env
-dev.md
 *.log
