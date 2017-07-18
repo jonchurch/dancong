@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
 import FacebookLogin from 'react-facebook-login'
+import FB from 'fb'
 
 import './App.css';
 
@@ -10,6 +10,7 @@ class App extends Component {
 
 responseFacebook (res) {
 	console.log('=======FB RES', res)
+	
 }
   render() {
 	  console.log(process.env.APP_ID)
@@ -17,7 +18,7 @@ responseFacebook (res) {
       <div className="App">
 		<FacebookLogin
 			appId='801527833349607'
-			autoLoad
+			autoLoad={false}
 			fields="name,email"
 			scope="manage_pages"
 			callback={this.responseFacebook} />

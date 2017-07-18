@@ -7,6 +7,7 @@
     "body-parser": "^1.17.2",
     "botkit": "^0.5.5",
     "express": "^4.15.3",
+    "fb": "^2.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-facebook-login": "^3.6.2",
