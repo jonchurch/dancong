@@ -1,3 +1,8 @@
+
+lets get manage_pages permission from Fb
+
+-----
+
 Okay! Here we are!
 
 Let's get some requirements in here...
