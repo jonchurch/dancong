@@ -6,6 +6,7 @@ import './App.css';
 import 'react-select/dist/react-select.css'
 
 import Select from 'react-select'
+import BotSelector from './BotSelector'
 
 const rp = require('request-promise')
 const fb = new Facebook()
@@ -81,7 +82,8 @@ state = {
 		onChange={this.pageSelect}
 		/>
 		}
-      </div>
+		<BotSelector bots={[{name: 'Pizza Bot'}]}/>
+      </div> 
     );
   }
 }

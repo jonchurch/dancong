@@ -8,6 +8,7 @@ Two new interstitial views, choose bot, fill config
 
 User saves the options, and we post the data to the server
 
+closed the select drawer on page select, now lets make a bot selector
 
 -------
 
