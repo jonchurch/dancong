@@ -1,4 +1,16 @@
 
+Bot config, before subscribing let's post a config object to our server and save it to mongodb as botconfig
+
+Once you select a page, it will bring up a selector, faq bot or other bot
+You select one, it shows you a form with two options
+
+Two new interstitial views, choose bot, fill config
+
+User saves the options, and we post the data to the server
+
+
+-------
+
 lets get manage_pages permission from Fb
 
 Okay, so now I have the list of pages from fb, the page access token is included
