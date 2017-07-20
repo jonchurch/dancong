@@ -10,6 +10,8 @@ a graph api call, lets go grab that call
 Okey-dokey, but its not that simple, I want to subscribe the page after the bot is setup, right? lets just POC the call first
 
 
+So now I can react to the user selecting a page, lets do something I guess? Grab the config I'll need
+
 -----
 
 Okay! Here we are!

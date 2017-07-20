@@ -7,6 +7,7 @@ import 'react-select/dist/react-select.css'
 
 import Select from 'react-select'
 
+const rp = require('request-promise')
 const fb = new Facebook()
 
 class App extends Component {
@@ -35,8 +36,22 @@ async responseFacebook (res) {
 	
 }
 
- pageSelect(e) {
+ async pageSelect(e) {
 	 console.log(e)
+
+	 const page = this.state.pages.find((ele) => ele.id == e.value)
+	 console.log(this.state.pages)
+
+	 // here is the config to make the subscribe call!
+	 const config = {
+		 id: page.id,
+		 name: page.name,
+		 access_token: page.access_token
+	 }
+
+	 const webhook = await rp.post(`https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=${config.access_token}`)
+	console.log({webhook})
+
  }
 
 
@@ -52,7 +67,7 @@ state = {
 			appId='801527833349607'
 			autoLoad={true}
 			fields="name,email"
-			scope="manage_pages"
+			scope="manage_pages,pages_messaging"
 			callback={this.responseFacebook} />
 		<Select
 		name="Select Page"
