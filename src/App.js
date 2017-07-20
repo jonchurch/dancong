@@ -3,7 +3,9 @@ import FacebookLogin from 'react-facebook-login'
 import {Facebook} from 'fb'
 
 import './App.css';
-import PageSelector from './PageSelector'
+import 'react-select/dist/react-select.css'
+
+import Select from 'react-select'
 
 const fb = new Facebook()
 
@@ -13,6 +15,7 @@ class App extends Component {
 
 		this.responseFacebook = this.responseFacebook.bind(this)
 		// this.formSubmit = this.formSubmit.bind(this)
+		this.pageSelect = this.pageSelect.bind(this)
 	}
 
 async responseFacebook (res) {
@@ -21,14 +24,27 @@ async responseFacebook (res) {
 	// now that I have the pages list
 	// user needs to select their page to manage
 	const pages = accounts.data
+	console.log({pages})
+
+	const selectOptions = accounts.data.map((elem) => {
+		return {value: elem.id, label: elem.name} 
+	})
+	this.setState({ selectOptions })
+
 	this.setState({ pages })
 	
 }
 
+ pageSelect(e) {
+	 console.log(e)
+ }
+
 
 state = {
-	pages: []
+	pages: [],
+	selectOptions: []
 }
+
   render() {
     return (
       <div className="App">
@@ -38,7 +54,12 @@ state = {
 			fields="name,email"
 			scope="manage_pages"
 			callback={this.responseFacebook} />
-		<PageSelector pages={this.state.pages} />
+		<Select
+		name="Select Page"
+		value="Pages"
+		options={this.state.selectOptions}
+		onChange={this.pageSelect}
+		/>
       </div>
     );
   }
