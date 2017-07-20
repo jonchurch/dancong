@@ -10,6 +10,23 @@ User saves the options, and we post the data to the server
 
 closed the select drawer on page select, now lets make a bot selector
 
+Page: {
+	id: 'page_id',
+	name: 'My FB Page',
+	access_token: 'tokenf',
+	bots: [
+		{
+			name: 'Greeting Bot',
+			desc: 'I am here to welcome all humans to their end',
+			data: {
+				greeting: 'Hello, there'
+			},
+			added_by: 'Jon Church',
+			active: true
+		}
+	]
+}
+
 -------
 
 lets get manage_pages permission from Fb
