@@ -3,6 +3,7 @@ import FacebookLogin from 'react-facebook-login'
 import {Facebook} from 'fb'
 
 import './App.css';
+import PageSelector from './PageSelector'
 
 const fb = new Facebook()
 
@@ -35,22 +36,7 @@ state = {
 			fields="name,email"
 			scope="manage_pages"
 			callback={this.responseFacebook} />
-		<div className="page-selector">
-			<form>
-			<select name="page">
-				{
-					this.state.pages.map((val) => {
-							return (
-							<option key={val.id} value={val.id}>{val.name}</option>
-						)
-					})
-				}
-			
-				
-		</select>
-		
-			</form>
-		</div>
+		<PageSelector pages={this.state.pages} />
       </div>
     );
   }
