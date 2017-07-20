@@ -15,7 +15,8 @@
     "react-scripts": "1.0.10",
     "react-select": "^1.0.0-rc.5",
     "request": "^2.81.0",
-    "request-promise": "^4.2.1"
+    "request-promise": "^4.2.1",
+    "mongoose": "~4.11.3"
   },
   "scripts": {
     "start": "react-scripts start",
