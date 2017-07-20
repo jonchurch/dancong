@@ -12,6 +12,7 @@ class App extends Component {
 		super()
 
 		this.responseFacebook = this.responseFacebook.bind(this)
+		// this.formSubmit = this.formSubmit.bind(this)
 	}
 
 async responseFacebook (res) {
@@ -23,6 +24,7 @@ async responseFacebook (res) {
 	this.setState({ pages })
 	
 }
+
 
 state = {
 	pages: []

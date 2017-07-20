@@ -1,6 +1,15 @@
 
 lets get manage_pages permission from Fb
 
+Okay, so now I have the list of pages from fb, the page access token is included
+
+I think that now all I have to do is subscribe my app to the page, by making 
+a graph api call, lets go grab that call
+`POST https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=PAGE_ACCESS_TOKEN"`
+
+Okey-dokey, but its not that simple, I want to subscribe the page after the bot is setup, right? lets just POC the call first
+
+
 -----
 
 Okay! Here we are!
