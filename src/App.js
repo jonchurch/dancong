@@ -72,11 +72,27 @@ async saveBot(config) {
 	console.log('heard save bot!', config)
 	// is this a new bot or an update?
 	// const newBot = true
+	console.log(this.state.pageSelected)
+
 
 	const bot = await rp.post({
 		url: `${api_root}/bot`,
 		body: config
 	}) 
+	const pageSelected = this.state.pageSelected
+	let botsArr = this.state.pageSelected.bots || []
+	botsArr = botsArr.map((ele) => ele._id )
+	pageSelected.bots = botsArr
+	pageSelected.bots.push(bot._id)
+	this.setState({ pageSelected})
+
+
+	const page = await rp.post({
+		url: `${api_root}/page/${this.state.pageSelected.id}`,
+		body: this.state.pageSelected
+	})
+
+	console.log({page})
 	const access_token = this.state.pageSelected.access_token
 	console.log({bot})
 	const subscribe = await rp.post({

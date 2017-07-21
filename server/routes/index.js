@@ -1,15 +1,15 @@
 const mongoose = require('mongoose')
 const express = require('express')
 const router = express.Router()
+const requestPromise = require('request-promise')
+const rp = requestPromise.defaults({ json: true })
 
-router.get('/test', (req, res) =>  {
-	res.send('it works')
-})
-
+const api_root = 'http://localhost:3001'
 const { catchErrors } = require('../helpers')
 const configController = require('../controllers/configController')
 const botController = require('../controllers/botController')
 const pageController = require('../controllers/pageController')
+
 
 
 module.exports = (controller) => {
@@ -30,6 +30,7 @@ router.post('/page', catchErrors(pageController.createPage))
 
 // Get Page from bot server
 router.get('/page/:id', catchErrors(pageController.getPageById))
+router.get('/pages', catchErrors(pageController.getAllPages))
 
 
 
@@ -58,19 +59,20 @@ router.get('/facebook/receive', function(req, res) {
 });
 
 
-const handleWebhookPayload = (req, res, bot) => {
+const handleWebhookPayload = async (req, res, bot) => {
 
 
         var obj = req.body;
         if (obj.entry) {
             for (var e = 0; e < obj.entry.length; e++) {
 				// spawn configed bot for this page!
-				//
-				//
-				// const page_id = obj.entry[e]
-				console.log('obj.entr:',obj.entry[e].recipient)
-				// const config = await rp.get(`${api_root}/config/${page_id}}`)
-				// console.log({config})
+				
+				const page_id = obj.entry[e].id
+
+				const config = await rp.get(`${api_root}/config/${page_id}`)
+
+				console.log({config})
+
                 for (var m = 0; m < obj.entry[e].messaging.length; m++) {
                     var facebook_message = obj.entry[e].messaging[m];
                     if (facebook_message.message) {

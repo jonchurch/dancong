@@ -1,3 +1,10 @@
+
+Why am I fiddling with the react app still?
+Let's switch to getting the bot handling two pages
+I guess I'm having issues updating the page? lets just check whats going on, do I have access to the page with the bot config after I save it?
+
+-----
+
 I can get a list of "bots" (bot configs), a Page by its page_id, create/update bots, Config, and pages
 
 The react app grabs my pages from FB, I select one, then it shows me a list of bots to setup

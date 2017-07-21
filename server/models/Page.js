@@ -14,13 +14,16 @@ const pageSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	bots: [
+	bots: {
+		type: [
 		{
 			type: mongoose.Schema.ObjectId,
 			required: false,
 			ref: "Bot"
 		}
 	],
+		default: []
+	},
 	// created_by: {
 	// 	type: String,
 	// 	required: true

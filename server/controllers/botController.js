@@ -18,8 +18,10 @@ exports.createBot = async (req, res) => {
 	const bot = await ( new Bot(req.body)).save()
 	const page = await Page.findOneAndUpdate(
 		{ id: req.body.id }, 
-		{ $push: { bots: bot._id} }
+		{ $push: { bots: bot._id} },
+		{new: true}
 	)
+	console.log('page from bot controller', page)
 
 	res.json(bot)
 }
