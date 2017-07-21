@@ -13,7 +13,7 @@ const botConfigSchema = new mongoose.Schema({
 	config_keys: [
 		{
 			key: String,
-			type: String,
+			// type: String,
 			default: String
 			
 		}

@@ -16,20 +16,41 @@ const pageSchema = new mongoose.Schema({
 	},
 	bots: [
 		{
-			type: mongoose.Schema.ObjectId
+			type: mongoose.Schema.ObjectId,
 			required: false,
 			ref: "Bot"
 		}
 	],
-	created_by: {
-		type: String,
-		required: true
-	}
+	// created_by: {
+	// 	type: String,
+	// 	required: true
+	// }
 	
 })
 
 function autopopulate(next) {
 	  this.populate('bots');
+	this.bots = this.bots.map((ele) => {
+		const obj = {
+			name: ele.name,
+			desc: ele.desc,
+			config: {},
+			active: ele.active
+		}
+
+		for (let i = 0; i < ele.config_keys.length; i += 1) {
+			// for each config option, pair its key and value in an obj
+			let opt = ele.config_keys[i]
+			obj.config[opt.key] = opt.value
+		}
+
+		return obj
+	})
+	// const botObj = {}
+	// for (let i = 0; i < bots.length; i += 1) {
+	// 	let bot = bots[i]
+	// 	botObj[bot.name] = bot
+	// }
 	  next();
 }
 
