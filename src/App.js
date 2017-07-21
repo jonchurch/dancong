@@ -71,11 +71,13 @@ async botSelected(config) {
 async saveBot(config) {
 	console.log('heard save bot!', config)
 	// is this a new bot or an update?
-	const newBot = ''
+	// const newBot = true
+
 	const bot = await rp.post({
 		url: `${api_root}/bot`,
 		body: config
 	}) 
+	console.log({bot})
 }
 
 

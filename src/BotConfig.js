@@ -34,7 +34,7 @@ class BotConfig extends React.Component{
 						return(
 							<div key={ele.key} className="field">
 								<label>{ele.key}</label>
-							<input key={ele.key} type="text" name={ele.key} defaultValue={ele.value || 'TEST'} />
+							<input key={ele.key} type="text" name={ele.key} defaultValue={ele.value || `Enter ${ele.key}`} />
 							</div>
 						)
 					})

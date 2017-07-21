@@ -15,7 +15,7 @@ exports.createBot = async (req, res) => {
 	}
 
 	// const bot = await new (Bot(req.body)).save()
-	const bot = await Bot.findOneAndUpdate({ _id: req.params.id }, req.body)
+	const bot = await ( new Bot(req.body)).save()
 	const page = await Page.findOneAndUpdate(
 		{ id: req.body.id }, 
 		{ $push: { bots: bot._id} }
