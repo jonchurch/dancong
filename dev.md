@@ -1,3 +1,18 @@
+I can get a list of "bots" (bot configs), a Page by its page_id, create/update bots, Config, and pages
+
+The react app grabs my pages from FB, I select one, then it shows me a list of bots to setup
+I need to get the list of configs available to my page, so I can show the user that list of bots to admin,
+
+I have the list of the configs, now I need to display the bot selector
+
+Displaying a ul of bots for now
+onclick, I need to load up the bot they're fiddling with
+
+That entails rendering a form with the bot's information
+
+
+-----
+
 But wait! I need to get EMPTY configs from the server for my react app!
 
 I also need to store the actual config values the user has entered.

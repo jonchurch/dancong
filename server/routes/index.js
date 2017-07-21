@@ -6,10 +6,13 @@ router.get('/test', (req, res) =>  {
 	res.send('it works')
 })
 
-const { catchErrors } = require('../handlers')
+const { catchErrors } = require('../helpers')
 const configController = require('../controllers/configController')
 const botController = require('../controllers/botController')
 const pageController = require('../controllers/pageController')
+
+
+module.exports = (controller) => {
 
 // Get Config for react app
 router.get('/config', catchErrors(configController.getAllConfig))
@@ -30,6 +33,30 @@ router.get('/page/:id', catchErrors(pageController.getPageById))
 
 
 
-router.post
+router.post('/facebook/receive', function(req, res) {
 
-module.exports = router
+	// NOTE: we should enforce the token check here
+
+	// respond to Slack that the webhook has been received.
+	res.status(200);
+	res.send('ok');
+
+
+	// Now, pass the webhook into be processed
+	controller.handleWebhookPayload(req, res);
+
+});
+
+router.get('/facebook/receive', function(req, res) {
+	if (req.query['hub.mode'] == 'subscribe') {
+		if (req.query['hub.verify_token'] == controller.config.verify_token) {
+			res.send(req.query['hub.challenge']);
+		} else {
+			res.send('OK');
+		}
+	}
+});
+
+return router
+
+}
