@@ -4,13 +4,17 @@ class BotSelector extends React.Component{
 
 	constructor() {
 		super() 
-		this.click = this.botClick.bind(this)
+		this.botClick = this.botClick.bind(this)
 	}
 
 	botClick(e) {
 		e.preventDefault()
+
 		console.log({e})
 
+	}
+
+	componentWillMount() {
 	}
 
 	render() {
@@ -20,11 +24,9 @@ class BotSelector extends React.Component{
 			{
 				this.props.bots.map((el) => {
 				return (
-					<div key={el.id}>
-					<li key={el.id}> 
-					<a onClick={(e) => this.botClick(e) } key={el.id} >{el.name}</a> 
+					<li key={el._id}> 
+					<a onClick={(e) => this.botClick(e)} key={el.name} >{el.name}</a> 
 					</li>
-					</div>
 				)
 				} )
 			}
