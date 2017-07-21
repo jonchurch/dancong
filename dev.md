@@ -27,6 +27,14 @@ Page: {
 	]
 }
 
+do I really need to create models for this? I really am not convinced atm...
+	Why Am I making models at all? because the react app will need to be able to get a list from the db of all available bot configs. Each bot will be a new entry into a Bots table, when user loads bot select page, we hit that table to get all bots, we are getting a representation of their config, in order to fill out by the user.
+
+	When we add new bots, we will have to update the table of bots with their config details, that should be done when a new "bot script" is installed on the server, each will be pacakged with its own config details that conform to the Bot model
+
+	Why not use botkit mongo storage for this?
+	Not too sure honestly... I can make it work I bet, even if I have to use it to feed the api
+
 -------
 
 lets get manage_pages permission from Fb
