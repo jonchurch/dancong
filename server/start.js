@@ -8,7 +8,6 @@ mongoose.connect(process.env.DATABASE, {
 mongoose.Promise = global.Promise
 mongoose.connection.on('error', (err) => {
 	console.error(`Oh no! Mongo error!: ${err.message}`)
-	console.log('db env:', process.env.DATABASE)
 })
 
 // require mongoose models
