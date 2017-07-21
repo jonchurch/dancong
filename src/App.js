@@ -77,7 +77,12 @@ async saveBot(config) {
 		url: `${api_root}/bot`,
 		body: config
 	}) 
+	const access_token = this.state.pageSelected.access_token
 	console.log({bot})
+	const subscribe = await rp.post({
+		url: `https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=${access_token}`
+	})
+	console.log({subscribe})
 }
 
 
