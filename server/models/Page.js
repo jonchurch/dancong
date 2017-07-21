@@ -29,7 +29,7 @@ const pageSchema = new mongoose.Schema({
 })
 
 function autopopulate(next) {
-	  this.populate('reviews');
+	  this.populate('bots');
 	  next();
 }
 

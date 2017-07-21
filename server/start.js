@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 
 // require mongoose models
-// require('./models/Bot')
-// Page.js
-
+require('./models/Page')
+require('./models/BotConfig')
+require('./models/Bot')
 
 const app = require('./app')
 
