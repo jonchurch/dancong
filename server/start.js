@@ -1,9 +1,20 @@
 const mongoose = require('mongoose')
 
+// require('dotenv').config({path: '/.env'})
+
+mongoose.connect(process.env.DATABASE)
+mongoose.Promise = global.Promise
+mongoose.connection.on('error', (err) => {
+	console.error(`Oh no! Mongo error!: ${err.message}`)
+	console.log('db env:', process.env.DATABASE)
+})
+
 // require mongoose models
 require('./models/Page')
-require('./models/BotConfig')
+require('./models/Config')
 require('./models/Bot')
+
+
 
 const app = require('./app')
 

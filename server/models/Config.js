@@ -22,4 +22,4 @@ const botConfigSchema = new mongoose.Schema({
 
 })
 
-module.exports = mongoose.model('BotConfig', botConfigSchema)
+module.exports = mongoose.model('Config', botConfigSchema)

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-mongoose.Promise = global.promise
+mongoose.Promise = global.Promise
 
 
 const botSchema = new mongoose.Schema({
