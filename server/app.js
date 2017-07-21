@@ -7,7 +7,7 @@ const cors = require('cors')
 const app = express()
 
 
-module.exports = (controller) {
+module.exports = (controller) => {
 
 const routes = require('./routes')(controller)
 

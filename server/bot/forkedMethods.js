@@ -1,8 +1,18 @@
-exports.handleWebhookPayload = (req, res) => {
+const api_root = 'http://localhost:3001'
+
+exports.handleWebhookPayload = (req, res, bot) => {
+
 
         var obj = req.body;
         if (obj.entry) {
             for (var e = 0; e < obj.entry.length; e++) {
+				// spawn configed bot for this page!
+				//
+				//
+				// const page_id = obj.entry[e]
+				console.log('obj.entr:',obj.entry[e].recipient)
+				// const config = await rp.get(`${api_root}/config/${page_id}}`)
+				// console.log({config})
                 for (var m = 0; m < obj.entry[e].messaging.length; m++) {
                     var facebook_message = obj.entry[e].messaging[m];
                     if (facebook_message.message) {
