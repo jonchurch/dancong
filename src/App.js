@@ -23,6 +23,7 @@ class App extends Component {
 		// this.formSubmit = this.formSubmit.bind(this)
 		this.pageSelect = this.pageSelect.bind(this)
 		this.botSelected = this.botSelected.bind(this)
+		this.saveBot = this.saveBot.bind(this)
 	}
 
 async responseFacebook (res) {
@@ -67,6 +68,16 @@ async botSelected(config) {
 	this.setState({ botSelected: config })
 }
 
+async saveBot(config) {
+	console.log('heard save bot!', config)
+	// is this a new bot or an update?
+	const newBot = ''
+	const bot = await rp.post({
+		url: `${api_root}/bot`,
+		body: config
+	}) 
+}
+
 
 state = {
 	pages: [],
@@ -103,6 +114,7 @@ state = {
 			!this.state.botSelected ? null :
 			<BotConfig 
 				bot={this.state.botSelected || [] }
+				save={this.saveBot}
 			
 			/>
 		}

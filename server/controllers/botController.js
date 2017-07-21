@@ -6,15 +6,16 @@ const { objectify } = require('../helpers')
 
 
 exports.createBot = async (req, res) => {
-	// need to break these up into key-value objects
-	const config_keys = objectify(req.body.config) 	
+	if (req.body.config) {
 
-	// remove the config field on body, attach the one mongo expects
+	// need to break these up into key-value objects
+	req.body.config_keys = objectify(req.body.config) 	
 	delete req.body.config
 
-	req.body.config_keys = config_keys
+	}
 
-	const bot = await new (Bot(req.body)).save()
+	// const bot = await new (Bot(req.body)).save()
+	const bot = await Bot.findOneAndUpdate({ _id: req.params.id }, req.body)
 	const page = await Page.findOneAndUpdate(
 		{ id: req.body.id }, 
 		{ $push: { bots: bot._id} }
