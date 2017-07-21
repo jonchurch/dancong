@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const Bot = mongoose.model('Bot')
 const Page = mongoose.model('Page')
 
-objectify(arr) => {
+const objectify = (arr) => {
 	return Object.entries(arr).map((ele) => {
 			return {key: ele[0], value: ele[1] }
 		})

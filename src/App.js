@@ -9,8 +9,10 @@ import Select from 'react-select'
 import BotSelector from './BotSelector'
 
 const requestPromise = require('request-promise')
-const rp = requetPromise.defaults({ json: true })
+const rp = requestPromise.defaults({ json: true })
 const fb = new Facebook()
+
+const api_root = 'http://localhost:3001'
 
 class App extends Component {
 	constructor() {
@@ -33,7 +35,6 @@ async responseFacebook (res) {
 		return {value: elem.id, label: elem.name} 
 	})
 	this.setState({ selectOptions })
-
 	this.setState({ pages })
 	
 }
@@ -52,6 +53,10 @@ async responseFacebook (res) {
 	 }
 
 	 this.setState({ pageSelected: config })
+
+	 const botConfig = await rp.get(`${api_root}/config`)
+	 console.log({botConfig})
+	 
 
 	 // const webhook = await rp.post(`https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=${config.access_token}`)
 	// console.log({webhook})

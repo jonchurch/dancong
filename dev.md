@@ -1,5 +1,9 @@
 I can get a list of "bots" (bot configs), a Page by its page_id, create/update bots, Config, and pages
 
+The react app grabs my pages from FB, I select one, then it shows me a list of bots to setup
+I need to get the list of configs available to my page, so I can show the user that list of bots to admin,
+
+
 -----
 
 But wait! I need to get EMPTY configs from the server for my react app!
