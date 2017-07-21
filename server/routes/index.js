@@ -25,7 +25,7 @@ router.post('/bot', catchErrors(botController.createBot))
 // Update bot 
 
 // Post Page to server from react
-router.post('/page', catchErrors(pageController.createPage))
+router.post('/page/:id', catchErrors(pageController.createPage))
 //update page
 
 // Get Page from bot server

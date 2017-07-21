@@ -9,7 +9,7 @@ exports.getPageById = async (req, res) => {
 
 exports.createPage = async (req, res) => {
 	// const page = await (new Page(req.body)).save()
-	const page = await Page.findOneAndUpdate({ id: req.body.id },
+	const page = await Page.findOneAndUpdate({ id: req.params.id },
 		req.body,
 		{upsert: true, new: true}
 	)

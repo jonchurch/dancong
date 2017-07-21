@@ -43,29 +43,34 @@ async responseFacebook (res) {
 
 	 const page = this.state.pages.find((ele) => ele.id == e.value)
 	 console.log(this.state.pages)
+	 let pageRec = await rp.get(`${api_root}/page/${page.id}`)
+	 console.log({pageRec})
 
 	 // here is the config to make the subscribe call!
-	 const config = {
-		 id: page.id,
-		 name: page.name,
-		 access_token: page.access_token
+	 if (! pageRec) {
+			pageRec = {
+			id: page.id,
+			name: page.name,
+			access_token: page.access_token,
+			bots: []
+		}
 	 }
 
-	 this.setState({ pageSelected: config })
+	 this.setState({ pageSelected: pageRec })
 
 	 const botConfig = await rp.get(`${api_root}/config`)
 	 console.log({botConfig})
 	 this.setState({ botConfig })
 
-	 
-
-	 // const webhook = await rp.post(`https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=${config.access_token}`)
-	// console.log({webhook})
-
  }
 
 async botSelected(config) {
-	this.setState({ botSelected: config })
+	console.log({config})
+
+	
+	const pageBot = this.state.pageSelected.bots.find((ele) => ele.name === config.name)
+	// populate the form with either empty config or our page's saved config
+	this.setState({ botSelected: pageBot ? pageBot : config })
 }
 
 async saveBot(config) {
