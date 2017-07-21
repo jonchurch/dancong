@@ -21,6 +21,7 @@ class App extends Component {
 		this.responseFacebook = this.responseFacebook.bind(this)
 		// this.formSubmit = this.formSubmit.bind(this)
 		this.pageSelect = this.pageSelect.bind(this)
+		this.botSelected = this.botSelected.bind(this)
 	}
 
 async responseFacebook (res) {
@@ -61,6 +62,11 @@ async responseFacebook (res) {
 
  }
 
+async botSelected(e) {
+	e.preventDefault()
+	console.log({e})
+}
+
 
 state = {
 	pages: [],
@@ -90,7 +96,10 @@ state = {
 		onChange={this.pageSelect}
 		/>
 		}
-		<BotSelector bots={this.state.botConfig}/>
+		<BotSelector 
+			bots={this.state.botConfig}
+			select={this.botSelected}
+		/>
       </div> 
     );
   }
