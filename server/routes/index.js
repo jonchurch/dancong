@@ -6,7 +6,7 @@ router.get('/test', (req, res) =>  {
 	res.send('it works')
 })
 
-const { catchErrors } = require('../handlers')
+const { catchErrors } = require('../helpers')
 const configController = require('../controllers/configController')
 const botController = require('../controllers/botController')
 const pageController = require('../controllers/pageController')

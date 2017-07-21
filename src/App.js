@@ -31,10 +31,6 @@ async responseFacebook (res) {
 	const pages = accounts.data
 	console.log({pages})
 
-	const selectOptions = accounts.data.map((elem) => {
-		return {value: elem.id, label: elem.name} 
-	})
-	this.setState({ selectOptions })
 	this.setState({ pages })
 	
 }
@@ -56,6 +52,7 @@ async responseFacebook (res) {
 
 	 const botConfig = await rp.get(`${api_root}/config`)
 	 console.log({botConfig})
+
 	 
 
 	 // const webhook = await rp.post(`https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=${config.access_token}`)
@@ -66,7 +63,7 @@ async responseFacebook (res) {
 
 state = {
 	pages: [],
-	selectOptions: [],
+	pageSelectOptions: [],
 	pageSelected: false
 }
 
@@ -84,7 +81,10 @@ state = {
 			this.state.pageSelected ? <p>You selected {this.state.pageSelected.name}</p> : <Select
 		name="Select Page"
 		value="Pages"
-		options={this.state.selectOptions}
+		options={
+			this.state.pages.map(
+				(elem) => {return {value: elem.id, label: elem.name}}
+			)}
 		onChange={this.pageSelect}
 		/>
 		}

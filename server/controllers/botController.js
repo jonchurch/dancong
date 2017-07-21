@@ -2,12 +2,8 @@ const mongoose = require('mongoose')
 
 const Bot = mongoose.model('Bot')
 const Page = mongoose.model('Page')
+const { objectify } = require('../helpers')
 
-const objectify = (arr) => {
-	return Object.entries(arr).map((ele) => {
-			return {key: ele[0], value: ele[1] }
-		})
-}
 
 exports.createBot = async (req, res) => {
 	// need to break these up into key-value objects
