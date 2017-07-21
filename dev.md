@@ -1,3 +1,87 @@
+But wait! I need to get EMPTY configs from the server for my react app!
+
+I also need to store the actual config values the user has entered.
+
+Ultimately, I want to be able to use the bot config like this:
+
+```javascript
+
+page: {
+	id: '1232312',
+	name: 'DEV-dancong',
+	bots: [
+		{
+			name: 'Greeter',
+			desc: 'I greet folks',
+			active: true,
+			config: {
+				default_lang: 'en',
+				greeting: 'Howdy',
+				goodbye: 'Adios'
+			}
+
+		}
+	]
+}
+```
+
+I could probably save the config as sets of key value pairs
+
+```
+botConfig: {
+	name: 'Greeter',
+	desc: 'I say hello to folks',
+	config_keys: [
+			{
+				key: 'default_lang',
+				value: 'en',
+				type: 'String',
+				default: 'en'
+			}
+	]
+}
+
+```
+
+-------
+
+Bot config, before subscribing let's post a config object to our server and save it to mongodb as botconfig
+
+Once you select a page, it will bring up a selector, faq bot or other bot
+You select one, it shows you a form with two options
+
+Two new interstitial views, choose bot, fill config
+
+User saves the options, and we post the data to the server
+
+closed the select drawer on page select, now lets make a bot selector
+
+Page: {
+	id: 'page_id',
+	name: 'My FB Page',
+	access_token: 'tokenf',
+	bots: [
+		{
+			name: 'Greeting Bot',
+			desc: 'I am here to welcome all humans to their end',
+			data: [
+				{key: 'value'
+			],
+			added_by: 'Jon Church',
+			active: true
+		}
+	]
+}
+
+do I really need to create models for this? I really am not convinced atm...
+	Why Am I making models at all? because the react app will need to be able to get a list from the db of all available bot configs. Each bot will be a new entry into a Bots table, when user loads bot select page, we hit that table to get all bots, we are getting a representation of their config, in order to fill out by the user.
+
+	When we add new bots, we will have to update the table of bots with their config details, that should be done when a new "bot script" is installed on the server, each will be pacakged with its own config details that conform to the Bot model
+
+	Why not use botkit mongo storage for this?
+	Not too sure honestly... I can make it work I bet, even if I have to use it to feed the api
+
+-------
 
 lets get manage_pages permission from Fb
 

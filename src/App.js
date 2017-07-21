@@ -6,6 +6,7 @@ import './App.css';
 import 'react-select/dist/react-select.css'
 
 import Select from 'react-select'
+import BotSelector from './BotSelector'
 
 const rp = require('request-promise')
 const fb = new Facebook()
@@ -49,18 +50,22 @@ async responseFacebook (res) {
 		 access_token: page.access_token
 	 }
 
-	 const webhook = await rp.post(`https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=${config.access_token}`)
-	console.log({webhook})
+	 this.setState({ pageSelected: config })
+
+	 // const webhook = await rp.post(`https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=${config.access_token}`)
+	// console.log({webhook})
 
  }
 
 
 state = {
 	pages: [],
-	selectOptions: []
+	selectOptions: [],
+	pageSelected: false
 }
 
   render() {
+	  console.log(this.state)
     return (
       <div className="App">
 		<FacebookLogin
@@ -69,13 +74,16 @@ state = {
 			fields="name,email"
 			scope="manage_pages,pages_messaging"
 			callback={this.responseFacebook} />
-		<Select
+		{ 
+			this.state.pageSelected ? <p>You selected {this.state.pageSelected.name}</p> : <Select
 		name="Select Page"
 		value="Pages"
 		options={this.state.selectOptions}
 		onChange={this.pageSelect}
 		/>
-      </div>
+		}
+		<BotSelector bots={[{name: 'Pizza Bot'}]}/>
+      </div> 
     );
   }
 }
