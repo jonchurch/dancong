@@ -8,7 +8,8 @@ import 'react-select/dist/react-select.css'
 import Select from 'react-select'
 import BotSelector from './BotSelector'
 
-const rp = require('request-promise')
+const requestPromise = require('request-promise')
+const rp = requetPromise.defaults({ json: true })
 const fb = new Facebook()
 
 class App extends Component {

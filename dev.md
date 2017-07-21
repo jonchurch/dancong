@@ -1,3 +1,7 @@
+I can get a list of "bots" (bot configs), a Page by its page_id, create/update bots, Config, and pages
+
+-----
+
 But wait! I need to get EMPTY configs from the server for my react app!
 
 I also need to store the actual config values the user has entered.
