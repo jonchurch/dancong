@@ -28,9 +28,9 @@ var controller = Botkit.facebookbot({
 
 controller.handleWebhookPayload = handleWebhookPayload
 
-var normalizedPath = require("path").join(__dirname, "skills");
+var normalizedPath = require("path").join(__dirname, "bot/skills");
 require("fs").readdirSync(normalizedPath).forEach(function(file) {
-  require("./skills/" + file)(controller);
+  require("./bot/skills/" + file)(controller);
 });
 
 const app = require('./app')(controller)
