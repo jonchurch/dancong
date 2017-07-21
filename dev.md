@@ -1,3 +1,49 @@
+But wait! I need to get EMPTY configs from the server for my react app!
+
+I also need to store the actual config values the user has entered.
+
+Ultimately, I want to be able to use the bot config like this:
+
+```javascript
+
+page: {
+	id: '1232312',
+	name: 'DEV-dancong',
+	bots: [
+		{
+			name: 'Greeter',
+			desc: 'I greet folks',
+			active: true,
+			config: {
+				default_lang: 'en',
+				greeting: 'Howdy',
+				goodbye: 'Adios'
+			}
+
+		}
+	]
+}
+```
+
+I could probably save the config as sets of key value pairs
+
+```
+botConfig: {
+	name: 'Greeter',
+	desc: 'I say hello to folks',
+	config_keys: [
+			{
+				key: 'default_lang',
+				value: 'en',
+				type: 'String',
+				default: 'en'
+			}
+	]
+}
+
+```
+
+-------
 
 Bot config, before subscribing let's post a config object to our server and save it to mongodb as botconfig
 
@@ -18,9 +64,9 @@ Page: {
 		{
 			name: 'Greeting Bot',
 			desc: 'I am here to welcome all humans to their end',
-			data: {
-				greeting: 'Hello, there'
-			},
+			data: [
+				{key: 'value'
+			],
 			added_by: 'Jon Church',
 			active: true
 		}
