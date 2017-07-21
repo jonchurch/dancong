@@ -7,6 +7,7 @@ import 'react-select/dist/react-select.css'
 
 import Select from 'react-select'
 import BotSelector from './BotSelector'
+import BotConfig from './BotConfig'
 
 const requestPromise = require('request-promise')
 const rp = requestPromise.defaults({ json: true })
@@ -62,9 +63,8 @@ async responseFacebook (res) {
 
  }
 
-async botSelected(e) {
-	e.preventDefault()
-	console.log({e})
+async botSelected(config) {
+	this.setState({ botSelected: config })
 }
 
 
@@ -76,7 +76,6 @@ state = {
 }
 
   render() {
-	  console.log(this.state)
     return (
       <div className="App">
 		<FacebookLogin
@@ -100,6 +99,13 @@ state = {
 			bots={this.state.botConfig}
 			select={this.botSelected}
 		/>
+		{
+			!this.state.botSelected ? null :
+			<BotConfig 
+				bot={this.state.botSelected || [] }
+			
+			/>
+		}
       </div> 
     );
   }
