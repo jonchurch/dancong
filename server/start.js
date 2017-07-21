@@ -2,7 +2,9 @@ const mongoose = require('mongoose')
 
 // require('dotenv').config({path: '/.env'})
 
-mongoose.connect(process.env.DATABASE)
+mongoose.connect(process.env.DATABASE, {
+	useMongoClient: true
+})
 mongoose.Promise = global.Promise
 mongoose.connection.on('error', (err) => {
 	console.error(`Oh no! Mongo error!: ${err.message}`)

@@ -13,7 +13,7 @@ const pageController = require('../controllers/pageController')
 
 // Get BotConfig for react app
 router.get('/config', catchErrors(configController.getAllConfig))
-// Create config, (from bot file)
+// Create config (from bot file)
 router.post('/config', catchErrors(configController.createConfig))
 
 // Post Bot to server from react app
