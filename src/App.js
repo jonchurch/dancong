@@ -52,6 +52,7 @@ async responseFacebook (res) {
 
 	 const botConfig = await rp.get(`${api_root}/config`)
 	 console.log({botConfig})
+	 this.setState({ botConfig })
 
 	 
 
@@ -64,7 +65,8 @@ async responseFacebook (res) {
 state = {
 	pages: [],
 	pageSelectOptions: [],
-	pageSelected: false
+	pageSelected: false,
+	botConfig: []
 }
 
   render() {
@@ -88,7 +90,7 @@ state = {
 		onChange={this.pageSelect}
 		/>
 		}
-		<BotSelector bots={[{name: 'Pizza Bot'}]}/>
+		<BotSelector bots={this.state.botConfig}/>
       </div> 
     );
   }

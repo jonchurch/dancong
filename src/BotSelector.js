@@ -16,13 +16,19 @@ class BotSelector extends React.Component{
 	render() {
 		return (
 			<div className="bot-selector ui column">
+				<ul>
 			{
 				this.props.bots.map((el) => {
 				return (
-					<a onClick={(e) => this.botClick(e) }>{el.name}</a>
+					<div key={el.id}>
+					<li key={el.id}> 
+					<a onClick={(e) => this.botClick(e) } key={el.id} >{el.name}</a> 
+					</li>
+					</div>
 				)
 				} )
 			}
+			</ul>
 			</div>
 		)
 	}

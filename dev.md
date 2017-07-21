@@ -3,6 +3,7 @@ I can get a list of "bots" (bot configs), a Page by its page_id, create/update b
 The react app grabs my pages from FB, I select one, then it shows me a list of bots to setup
 I need to get the list of configs available to my page, so I can show the user that list of bots to admin,
 
+I have the list of the configs, now I need to display the bot selector
 
 -----
 
