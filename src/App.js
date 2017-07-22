@@ -29,9 +29,13 @@ class App extends Component {
 async responseFacebook (res) {
 	console.log('=======FB RES', res)
 	// exchange shortlived token for longlived
-	const token = rp.get(`${api_root}/token`, {token: res.accessToken})
+	const token = await rp.post({
+		url: `${api_root}/token`,
+		body: {token: res.accessToken}
+	})
+	console.log({token})
 	
-	const accounts = await fb.api('me/accounts', { access_token: token })
+	const accounts = await fb.api('me/accounts', { access_token: token.access_token})
 	// now that I have the pages list
 	// user needs to select their page to manage
 	const pages = accounts.data
