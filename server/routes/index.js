@@ -30,6 +30,20 @@ router.post('/page/:id', catchErrors(pageController.createPage))
 router.get('/page/:id', catchErrors(pageController.getPageById))
 router.get('/pages', catchErrors(pageController.getAllPages))
 
+router.get('/token', catchErrors(async (req, res) => {
+	const token = await rp.get({
+		url: "https://graph.facebook.com/oauth/access_token",
+		qs: {
+			client_id=process.env.APP_ID,
+			client_secret=process.env.APP_SECRET,
+			grant_type= 'fb_exchange_token',
+			fb_exchange_token=req.body.token
+		}
+	})
+	res.json({token})
+
+}))
+
 // bot webhook
 router.post('/facebook/receive', function(req, res) {
 

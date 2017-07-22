@@ -28,7 +28,10 @@ class App extends Component {
 
 async responseFacebook (res) {
 	console.log('=======FB RES', res)
-	const accounts = await fb.api('me/accounts', { access_token: res.accessToken })
+	// exchange shortlived token for longlived
+	const token = rp.get(`${api_root}/token`, {token: res.accessToken})
+	
+	const accounts = await fb.api('me/accounts', { access_token: token })
 	// now that I have the pages list
 	// user needs to select their page to manage
 	const pages = accounts.data
@@ -71,9 +74,9 @@ async botSelected(config) {
 	const pageBot = this.state.pageSelected.bots.find((ele) => ele.name === config.name)
 	console.log({pageBot})
 
-	if (pageBot && pageBot._id) {
-		delete pageBot._id
-	}
+	// if (pageBot && pageBot._id) {
+	// 	delete pageBot._id
+	// }
 
 	// populate the form with either empty config or our page's saved config
 	this.setState({ botSelected: pageBot ? pageBot : config })
@@ -83,14 +86,12 @@ async saveBot(config) {
 	console.log('heard save bot!', config)
 	// is this a new bot or an update?
 	// const newBot = true
-	console.log(this.state.pageSelected)
-
 	// create page if it doesnt exist already
 	const page = await rp.post({
 		url: `${api_root}/page/${this.state.pageSelected.id}`,
 		body: this.state.pageSelected
 	})
-
+	console.log({page})
 
 	const bot = await rp.post({
 		url: `${api_root}/bot/${this.state.pageSelected.id}`,
