@@ -69,6 +69,12 @@ async botSelected(config) {
 
 	
 	const pageBot = this.state.pageSelected.bots.find((ele) => ele.name === config.name)
+	console.log({pageBot})
+
+	if (pageBot && pageBot._id) {
+		delete pageBot._id
+	}
+
 	// populate the form with either empty config or our page's saved config
 	this.setState({ botSelected: pageBot ? pageBot : config })
 }
@@ -79,27 +85,20 @@ async saveBot(config) {
 	// const newBot = true
 	console.log(this.state.pageSelected)
 
-
-	const bot = await rp.post({
-		url: `${api_root}/bot`,
-		body: config
-	}) 
-	const pageSelected = this.state.pageSelected
-	let botsArr = this.state.pageSelected.bots || []
-	botsArr = botsArr.map((ele) => ele._id )
-	pageSelected.bots = botsArr
-	pageSelected.bots.push(bot._id)
-	this.setState({ pageSelected})
-
-
+	// create page if it doesnt exist already
 	const page = await rp.post({
 		url: `${api_root}/page/${this.state.pageSelected.id}`,
 		body: this.state.pageSelected
 	})
 
-	console.log({page})
-	const access_token = this.state.pageSelected.access_token
+
+	const bot = await rp.post({
+		url: `${api_root}/bot/${this.state.pageSelected.id}`,
+		body: config
+	}) 
 	console.log({bot})
+
+	const access_token = this.state.pageSelected.access_token
 	const subscribe = await rp.post({
 		url: `https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=${access_token}`
 	})

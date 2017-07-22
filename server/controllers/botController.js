@@ -15,15 +15,28 @@ exports.createBot = async (req, res) => {
 	}
 
 	// const bot = await new (Bot(req.body)).save()
-	const bot = await ( new Bot(req.body)).save()
-	const page = await Page.findOneAndUpdate(
-		{ id: req.body.id }, 
-		{ $push: { bots: bot._id} },
-		{new: true}
+	console.log('bot create req.body', req.body)
+	const bot = await Bot.findOneAndUpdate({_id: req.body._id},
+		req.body,
+		{upsert: true, new: true}
 	)
+	console.log({bot})
+	// const page = await Page.findOneAndUpdate(
+	// 	{ id: req.params.id }, 
+	// 	{ $push: { bots: bot._id} },
+	// 	{new: true}
+	// )
+	let page = await Page.findOne({ id: req.params.id})
+	console.log({page})
+
+	if  (! page.bots.find((el) => bot._id === el)) {
+		page.bots.push(bot._id)
+		page = await page.save()
+	}
+
 	console.log('page from bot controller', page)
 
-	res.json(bot)
+	res.json(page)
 }
 
 exports.updateBot = async (req, res) => {

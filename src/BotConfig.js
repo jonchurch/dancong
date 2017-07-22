@@ -13,6 +13,7 @@ class BotConfig extends React.Component{
 		// const form = Object.keys(this.configForm.elements)//.splice(-1,1)
 		const formArr = [... this.configForm.getElementsByTagName("input")]
 		const config = {
+			_id: this.props.bot._id,
 			name: this.props.bot.name,
 			desc: this.props.bot.desc,
 			active: true,
@@ -31,10 +32,11 @@ class BotConfig extends React.Component{
 			{
 				this.props.bot.config_keys
 					.map((ele) => {
+						console.log({ele})
 						return(
 							<div key={ele.key} className="field">
 								<label>{ele.key}</label>
-							<input key={ele.key} type="text" name={ele.key} defaultValue={ele.value || `Enter ${ele.key}`} />
+							<input key={ele.key} type="text" name={ele.key} defaultValue={ele.value} />
 							</div>
 						)
 					})

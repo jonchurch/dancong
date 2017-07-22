@@ -21,7 +21,7 @@ router.get('/config', catchErrors(configController.getAllConfig))
 router.post('/config', catchErrors(configController.createConfig))
 
 // Post Bot to server from react app
-router.post('/bot', catchErrors(botController.createBot))
+router.post('/bot/:id', catchErrors(botController.createBot))
 // Update bot 
 
 // Post Page to server from react
