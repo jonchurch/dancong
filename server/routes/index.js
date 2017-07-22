@@ -58,20 +58,53 @@ router.get('/facebook/receive', function(req, res) {
 	}
 });
 
+const getConfig = async (obj) => {
+	let data = {}
 
-const handleWebhookPayload = async (req, res, bot) => {
+	await Promise.all(obj.entry.map(page => {
+		data[page.id] = await rp.get(`${api_root}/page/${page.id}`)
+	}))
+}
+
+
+const handleWebhookPayload = async (req, res) => {
 
 
         var obj = req.body;
+		let pageConfigPromises = []
+		const botConfigs = getConfig(obj)
+
         if (obj.entry) {
             for (var e = 0; e < obj.entry.length; e++) {
 				// spawn configed bot for this page!
 				
 				const page_id = obj.entry[e].id
+				console.log({page_id})
+				
+				// oh yah, loops and promises
+				pageConfigPromises.push(rp.get(`${api_root}/page/${page_id}`))
+			}
+			
+			Promise.all(pageConfigPromises).then((pageConfigs) => {
 
-				const config = await rp.get(`${api_root}/config/${page_id}`)
+			console.log('BUT YOU PROMISED',pageConfigs[0])
 
-				console.log({config})
+
+            for (var e = 0; e < obj.entry.length; e++) {
+				// spawn configed bot for this page!
+				const config = pageConfigPromises.find((el) => 
+					{
+						console.log('EL IN FIND;',el)
+						return el.id == obj.entry[e].id
+					})
+				if (! config ) {
+					console.log({config})
+					console.log('Cant find bot config!')
+				console.log('I DID PROMISE',pageConfigs[0])
+					return
+				}
+				const bot = controller.spawn(config)
+			}
 
                 for (var m = 0; m < obj.entry[e].messaging.length; m++) {
                     var facebook_message = obj.entry[e].messaging[m];
@@ -178,8 +211,8 @@ const handleWebhookPayload = async (req, res, bot) => {
                         controller.log('Got an unexpected message from Facebook: ', facebook_message);
                     }
                 }
-            }
-        }
+            })
+		}
     }
 
 return router
