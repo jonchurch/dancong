@@ -7,7 +7,7 @@ exports.catchErrors = (fn) => {
 };
 
 
-exports.objectify = (arr) => {
+exports.pairKeys = (arr) => {
 	return Object.entries(arr).map((ele) => {
 			return {key: ele[0], value: ele[1] }
 		})

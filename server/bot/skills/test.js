@@ -11,7 +11,6 @@ module.exports = (controller)=> {
 			return true
 		}
 		console.log('bot stuff', bot.config.bots)
-		console.log({message})
-		bot.reply(message, greeter.greeting)
+		bot.reply(message, greeter.config.greeting)
 	})
 }

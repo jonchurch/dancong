@@ -5,7 +5,7 @@ const requestPromise = require('request-promise')
 const rp = requestPromise.defaults({ json: true })
 
 const api_root = 'http://localhost:3001'
-const { catchErrors } = require('../helpers')
+const { catchErrors, pairKeys } = require('../helpers')
 const configController = require('../controllers/configController')
 const botController = require('../controllers/botController')
 const pageController = require('../controllers/pageController')
@@ -76,13 +76,22 @@ const handleWebhookPayload = async (req, res) => {
 	console.log({botConfigs})
 		for (var e = 0; e < obj.entry.length; e++) {
 			// spawn configed bot for this page!
-			const config = botConfigs.find(el => el.id === obj.entry[e].id)
-			config.bots = config.bots.reduce((obj, item) => {
+			const page = botConfigs.find(el => el.id === obj.entry[e].id)
+				
+			page.bots = page.bots.reduce((obj, item) => {
+				// I want to flatten the array of config k/v in each bot
+				// to turn it into an object, so I can use dot notation in my bot skill
+				item.config = item.config_keys.reduce((a, k)=> {
+					a[k.key] = k.value
+					return a
+				}, {})
 				obj[item.name.toLowerCase()] = item
 				return obj
 			}, {})
-			console.log({config})
-			const bot = controller.spawn(config)
+			
+			console.log({page})
+			// spawn a bot with our page's config
+			const bot = controller.spawn(page)
 
 			for (var m = 0; m < obj.entry[e].messaging.length; m++) {
 				var facebook_message = obj.entry[e].messaging[m];
