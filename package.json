@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "body-parser": "~1.17.2",
-    "botkit": "^0.5.5",
+    "botkit": "https://github.com/jonchurch/botkit/tarball/multi-hears",
     "express": "~4.15.3",
     "fb": "^2.0.0",
     "react": "^15.6.1",
