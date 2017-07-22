@@ -77,6 +77,10 @@ const handleWebhookPayload = async (req, res) => {
 		for (var e = 0; e < obj.entry.length; e++) {
 			// spawn configed bot for this page!
 			const config = botConfigs.find(el => el.id === obj.entry[e].id)
+			config.bots = config.bots.reduce((obj, item) => {
+				obj[item.name.toLowerCase()] = item
+				return obj
+			}, {})
 			console.log({config})
 			const bot = controller.spawn(config)
 
