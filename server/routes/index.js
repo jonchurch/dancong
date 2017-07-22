@@ -42,6 +42,7 @@ router.post('/token', catchErrors(async (req, res) => {
 			fb_exchange_token: req.body.token
 		}
 	})
+	console.log(token.access_token)
 	res.json(token)
 
 }))

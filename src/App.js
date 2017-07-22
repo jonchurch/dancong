@@ -123,6 +123,7 @@ state = {
       <div className="App">
 		<FacebookLogin
 			appId='801527833349607'
+			reAuthenticate={true}
 			autoLoad={true}
 			fields="name,email"
 			scope="manage_pages,pages_messaging"

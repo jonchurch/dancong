@@ -25,7 +25,7 @@ var controller = Botkit.facebookbot({
 	debug: true,
 	receive_via_postback: true,
 	verify_token: process.env.VERIFY_TOKEN,
-	access_token: process.env.ACCESS_TOKEN
+	// access_token: process.env.ACCESS_TOKEN
 });
 
 
