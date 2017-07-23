@@ -21,7 +21,7 @@ require("fs").readdirSync(normalizedPath).forEach(function(file) {
 require('./components/thread_settings.js')(controller)
 
 // createConfig component
-controller.createConfig = require('./components/getConfig')
+controller.createConfig = require('./components/createConfig')
 
 // Catch-all handler for unmatched input
 controller.hears('(.*)', 'message_received', (bot, message) => {
