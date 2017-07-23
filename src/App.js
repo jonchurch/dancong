@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login'
-import {Facebook} from 'fb'
+// import {Facebook} from 'fb'
 
 import './App.css';
 import 'react-select/dist/react-select.css'
@@ -11,7 +11,7 @@ import BotConfig from './BotConfig'
 
 const requestPromise = require('request-promise')
 const rp = requestPromise.defaults({ json: true })
-const fb = new Facebook()
+// const fb = new Facebook()
 
 const api_root = 'http://localhost:3001'
 
@@ -33,7 +33,8 @@ async responseFacebook (res) {
 		body: {token: res.accessToken}
 	})
 	
-	const accounts = await fb.api('me/accounts', { access_token: token.access_token})
+	// const accounts = await fb.api('me/accounts', { access_token: token.access_token})
+	const accounts = await rp.get(`https://graph.facebook.com/v2.6/me/accounts?access_token=${token.access_token}`)
 	// now that I have the pages list
 	// user needs to select their page to manage
 	const pages = accounts.data
