@@ -107,8 +107,7 @@ state = {
       <div className="App">
 		<FacebookLogin
 			appId='801527833349607'
-			reAuthenticate={true}
-			autoLoad={true}
+			autoLoad={false}
 			fields="name,email"
 			scope="manage_pages,pages_messaging"
 			callback={this.responseFacebook} />
