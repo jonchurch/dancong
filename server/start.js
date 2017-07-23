@@ -5,7 +5,8 @@ var resolve = require('path').resolve
 
 const { handleWebhookPayload } = require('./bot/forkedMethods')
 
-require('dotenv').config({path: resolve('./.env')})
+// require('dotenv').config({path: resolve('./.env')})
+
 
 mongoose.connect(process.env.DATABASE, {
 	useMongoClient: true
@@ -20,22 +21,8 @@ require('./models/Page')
 require('./models/Config')
 require('./models/Bot')
 
-// Create the Botkit controller, which controls all instances of the bot.
-var controller = Botkit.facebookbot({
-	debug: true,
-	receive_via_postback: true,
-	verify_token: process.env.VERIFY_TOKEN,
-	// access_token: process.env.ACCESS_TOKEN
-});
-
-
-
-// controller.handleWebhookPayload = handleWebhookPayload
-
-var normalizedPath = require("path").join(__dirname, "bot/skills");
-require("fs").readdirSync(normalizedPath).forEach(function(file) {
-  require("./bot/skills/" + file)(controller);
-});
+// Create the Botkit Controller
+const controller = require('./bot/bot')
 
 const app = require('./app')(controller)
 

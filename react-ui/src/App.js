@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login'
-// import {Facebook} from 'fb'
 
 import './App.css';
 import 'react-select/dist/react-select.css'
@@ -11,9 +10,8 @@ import BotConfig from './BotConfig'
 
 const requestPromise = require('request-promise')
 const rp = requestPromise.defaults({ json: true })
-// const fb = new Facebook()
 
-const api_root = 'http://localhost:3001'
+const api_root = 'https://bot-react.herokuapp.com'
 
 class App extends Component {
 	constructor() {
@@ -24,6 +22,7 @@ class App extends Component {
 		this.botSelected = this.botSelected.bind(this)
 		this.saveBot = this.saveBot.bind(this)
 	}
+
 
 async responseFacebook (res) {
 	console.log('=======FB RES', res)

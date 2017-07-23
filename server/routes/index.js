@@ -4,13 +4,14 @@ const router = express.Router()
 const requestPromise = require('request-promise')
 const rp = requestPromise.defaults({ json: true })
 
-const api_root = 'http://localhost:3001'
 const { catchErrors, pairKeys } = require('../helpers')
 const configController = require('../controllers/configController')
 const botController = require('../controllers/botController')
 const pageController = require('../controllers/pageController')
 
 module.exports = (controller) => {
+
+// API Routes
 
 // Get Config for react app
 router.get('/config', catchErrors(configController.getAllConfig))
@@ -53,7 +54,7 @@ router.post('/facebook/receive', function(req, res) {
 	handleWebhookPayload(req, res);
 
 });
-
+// FB Webhook verify handshake
 router.get('/facebook/receive', function(req, res) {
 	if (req.query['hub.mode'] == 'subscribe') {
 		if (req.query['hub.verify_token'] == controller.config.verify_token) {
@@ -68,7 +69,7 @@ const getConfig = async (obj) => {
 	let data = []
 
 	await Promise.all(obj.entry.map(async page => {
-		const d = await rp.get(`${api_root}/page/${page.id}`)
+		const d = await rp.get(`${process.env.API_ROOT}/page/${page.id}`)
 		data.push(d)
 	}))
 	return data
