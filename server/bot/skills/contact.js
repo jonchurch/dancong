@@ -21,7 +21,7 @@ module.exports = (controller)=> {
 		if (! contact || ! contact.active) {
 			return true
 		}
-		bot.reply(message, `Our email is ${contact.config.email}`)
+		bot.reply(message, `Our email is ${contact.config.contact_email}`)
 	})
 
 }
