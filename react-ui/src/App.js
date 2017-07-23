@@ -11,7 +11,7 @@ import BotConfig from './BotConfig'
 const requestPromise = require('request-promise')
 const rp = requestPromise.defaults({ json: true })
 
-const api_root = process.env.API_ROOT
+const api_root = 'https://bot-react.herokuapp.com'
 
 class App extends Component {
 	constructor() {
