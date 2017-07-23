@@ -65,10 +65,6 @@ router.get('/facebook/receive', function(req, res) {
 	}
 });
 
-router.get('*', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'))
-})
-
 const getConfig = async (obj) => {
 	let data = []
 
