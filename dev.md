@@ -1,3 +1,9 @@
+my goal now is to get a staging build ready, so as to be able to hand off the project
+I should definitely clean things up a bit, but if I can't even build the damn thing then thats of little importance. I want to put attention to this goal because I really want this off my plate, and I want to go ahead and ship it to the custy so that they can be stoked about it.
+
+IT WORKED HOLY SHIT YES
+
+-----
 
 Why am I fiddling with the react app still?
 Let's switch to getting the bot handling two pages
