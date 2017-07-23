@@ -32,7 +32,6 @@ router.get('/pages', catchErrors(pageController.getAllPages))
 
 // Get longlived token from fb
 router.post('/token', catchErrors(async (req, res) => {
-	console.log('=====req.body:', req.body)
 	const token = await rp.get({
 		url: "https://graph.facebook.com/oauth/access_token",
 		qs: {
@@ -42,23 +41,16 @@ router.post('/token', catchErrors(async (req, res) => {
 			fb_exchange_token: req.body.token
 		}
 	})
-	console.log(token.access_token)
 	res.json(token)
 
 }))
 
-// bot webhook
+// Botkit webhook
 router.post('/facebook/receive', function(req, res) {
-
-	// NOTE: we should enforce the token check here
-
-	// respond to Slack that the webhook has been received.
 	res.status(200);
 	res.send('ok');
 
-const bot = controller.spawn({})
-	// Now, pass the webhook into be processed
-	handleWebhookPayload(req, res, bot);
+	handleWebhookPayload(req, res);
 
 });
 
@@ -90,7 +82,6 @@ const handleWebhookPayload = async (req, res) => {
 	if (obj.entry) {
 
 	const botConfigs = await getConfig(obj)
-	console.log({botConfigs})
 		for (var e = 0; e < obj.entry.length; e++) {
 			// spawn configed bot for this page!
 			const page = botConfigs.find(el => el.id === obj.entry[e].id)
@@ -106,7 +97,6 @@ const handleWebhookPayload = async (req, res) => {
 				return obj
 			}, {})
 			
-			console.log({page})
 			// spawn a bot with our page's config
 			const bot = controller.spawn(page)
 

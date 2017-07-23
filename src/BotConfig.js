@@ -11,12 +11,14 @@ class BotConfig extends React.Component{
 		// then post it to the server
 		e.preventDefault()
 		// const form = Object.keys(this.configForm.elements)//.splice(-1,1)
-		const formArr = [... this.configForm.getElementsByTagName("input")]
+		const formArr = [... this.configForm.getElementsByClassName("config")]
+		// const active = this.configForm.getElementsByClassName("active").checked
+		const active = this.checkbox.checked
 		const config = {
 			_id: this.props.bot._id,
 			name: this.props.bot.name,
 			desc: this.props.bot.desc,
-			active: true,
+			active: active,
 			config_keys: formArr.map((ele) => {return {key: ele.name, value: ele.value}})
 		}
 		this.props.save(config)
@@ -29,6 +31,10 @@ class BotConfig extends React.Component{
 			ref={(input) => this.configForm = input} 
 			onSubmit={(e) => this.formSubmit(e)}
 			>
+			<div className="ui checkbox">
+				<input ref={(el) => this.checkbox = el} id="active" type="checkbox" name="active" defaultChecked={this.props.bot.active} />
+				<label>Active</label>
+			</div>
 			{
 				this.props.bot.config_keys
 					.map((ele) => {
@@ -36,7 +42,7 @@ class BotConfig extends React.Component{
 						return(
 							<div key={ele.key} className="field">
 								<label>{ele.key}</label>
-							<input key={ele.key} type="text" name={ele.key} defaultValue={ele.value} />
+							<input key={ele.key} className="config" type="text" name={ele.key} defaultValue={ele.value} />
 							</div>
 						)
 					})
