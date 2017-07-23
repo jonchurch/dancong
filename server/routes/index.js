@@ -45,18 +45,12 @@ router.post('/token', catchErrors(async (req, res) => {
 
 }))
 
-// bot webhook
+// Botkit webhook
 router.post('/facebook/receive', function(req, res) {
-
-	// NOTE: we should enforce the token check here
-
-	// respond to Slack that the webhook has been received.
 	res.status(200);
 	res.send('ok');
 
-const bot = controller.spawn({})
-	// Now, pass the webhook into be processed
-	handleWebhookPayload(req, res, bot);
+	handleWebhookPayload(req, res);
 
 });
 
