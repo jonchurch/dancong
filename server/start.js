@@ -7,6 +7,8 @@ const { handleWebhookPayload } = require('./bot/forkedMethods')
 
 // require('dotenv').config({path: resolve('./.env')})
 
+console.log('======PROCESS.ENV.API_ROOT',process.env.API_ROOT)
+
 mongoose.connect(process.env.DATABASE, {
 	useMongoClient: true
 })
