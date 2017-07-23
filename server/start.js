@@ -21,22 +21,8 @@ require('./models/Page')
 require('./models/Config')
 require('./models/Bot')
 
-// Create the Botkit controller, which controls all instances of the bot.
-var controller = Botkit.facebookbot({
-	debug: true,
-	receive_via_postback: true,
-	verify_token: process.env.VERIFY_TOKEN,
-	// access_token: process.env.ACCESS_TOKEN
-});
-
-
-var normalizedPath = require("path").join(__dirname, "bot/skills");
-require("fs").readdirSync(normalizedPath).forEach(function(file) {
-  require("./bot/skills/" + file)(controller);
-});
-
-// set persistent menu options
-require('./bot/components/thread_settings.js')(controller)
+// Create the Botkit Controller
+const controller = require('./bot/bot')
 
 const app = require('./app')(controller)
 
