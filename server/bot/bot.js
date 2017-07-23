@@ -8,20 +8,21 @@ var controller = Botkit.facebookbot({
 	debug: true,
 	receive_via_postback: true,
 	verify_token: process.env.VERIFY_TOKEN,
-	// access_token: process.env.ACCESS_TOKEN
 });
 
 
-var normalizedPath = require("path").join(__dirname, "skills");
-require("fs").readdirSync(normalizedPath).forEach(function(file) {
-  require("./skills/" + file)(controller);
-});
 
 // set persistent menu options
 require('./components/thread_settings.js')(controller)
 
 // createConfig component
 controller.createConfig = require('./components/createConfig')
+
+// Register all the bots, their triggers, and their configuration
+var normalizedPath = require("path").join(__dirname, "skills");
+require("fs").readdirSync(normalizedPath).forEach(function(file) {
+  require("./skills/" + file)(controller);
+});
 
 // Catch-all handler for unmatched input
 controller.hears('(.*)', 'message_received', (bot, message) => {

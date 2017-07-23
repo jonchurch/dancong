@@ -1,5 +1,5 @@
 
-module.exports = (controller) {
+module.exports = (controller)=> {
 	controller.createConfig({
 		name: 'Order',
 		desc: 'Place orders',
