@@ -16,8 +16,6 @@
   },
   "scripts": {
     "start": "node server/start.js",
-	"heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
-    "test": "react-scripts test --env=jsdom",
-    "deploy": "ns ./build --cmd 'list ./content -s'"
+	"heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
   }
 }
