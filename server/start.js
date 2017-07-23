@@ -7,7 +7,6 @@ const { handleWebhookPayload } = require('./bot/forkedMethods')
 
 // require('dotenv').config({path: resolve('./.env')})
 
-console.log('======PROCESS.ENV.API_ROOT',process.env.API_ROOT)
 
 mongoose.connect(process.env.DATABASE, {
 	useMongoClient: true
@@ -31,13 +30,13 @@ var controller = Botkit.facebookbot({
 });
 
 
-
-// controller.handleWebhookPayload = handleWebhookPayload
-
 var normalizedPath = require("path").join(__dirname, "bot/skills");
 require("fs").readdirSync(normalizedPath).forEach(function(file) {
   require("./bot/skills/" + file)(controller);
 });
+
+// set persistent menu options
+require('./bot/components/thread_settings.js')(controller)
 
 const app = require('./app')(controller)
 
