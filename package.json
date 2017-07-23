@@ -2,6 +2,9 @@
   "name": "dancong",
   "author": "Jon Church",
   "version": "0.1.0",
+  "engines": {
+	  "node": "7.10.0"
+  },
   "private": true,
   "dependencies": {
     "body-parser": "~1.17.2",
