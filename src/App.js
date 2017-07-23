@@ -88,6 +88,10 @@ async saveBot(config) {
 	const subscribe = await rp.post({
 		url: `https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=${access_token}`
 	})
+		if (subscribe) {
+			this.success.hidden = false
+			setTimeout(() => this.success.hidden = true, 3000)
+		}
 }
 
 
@@ -131,6 +135,10 @@ state = {
 			
 			/>
 		}
+
+			<div hidden="true" ref={i => this.success = i} id="success">
+				<p>Saved bot!</p>
+			</div>
       </div> 
     );
   }
