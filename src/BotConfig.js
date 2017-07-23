@@ -14,8 +14,6 @@ class BotConfig extends React.Component{
 		const formArr = [... this.configForm.getElementsByClassName("config")]
 		// const active = this.configForm.getElementsByClassName("active").checked
 		const active = this.checkbox.checked
-		console.log('====ACTIVE ',active)
-		console.log({formArr})
 		const config = {
 			_id: this.props.bot._id,
 			name: this.props.bot.name,
@@ -23,7 +21,6 @@ class BotConfig extends React.Component{
 			active: active,
 			config_keys: formArr.map((ele) => {return {key: ele.name, value: ele.value}})
 		}
-		console.log({config})
 		this.props.save(config)
 	}
 

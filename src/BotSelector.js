@@ -8,7 +8,6 @@ class BotSelector extends React.Component{
 	}
 
 	clicked(e, data) {
-		console.log('got clicked')
 		this.props.select(data)
 	}
 
