@@ -13,7 +13,6 @@ const requestPromise = require('request-promise')
 const rp = requestPromise.defaults({ json: true })
 // const fb = new Facebook()
 
-const api_root = 'https://bot-react.herokuapp.com/'
 
 class App extends Component {
 	constructor() {
@@ -25,11 +24,13 @@ class App extends Component {
 		this.saveBot = this.saveBot.bind(this)
 	}
 
+api_root = 'https://bot-react.herokuapp.com/'
+
 async responseFacebook (res) {
 	console.log('=======FB RES', res)
 	// exchange shortlived token for longlived
 	const token = await rp.post({
-		url: `${api_root}/token`,
+		url: `${this.api_root}/token`,
 		body: {token: res.accessToken}
 	})
 	
@@ -46,7 +47,7 @@ async responseFacebook (res) {
  async pageSelect(e) {
 
 	 const page = this.state.pages.find((ele) => ele.id == e.value)
-	 let pageRec = await rp.get(`${api_root}/page/${page.id}`)
+	 let pageRec = await rp.get(`${this.api_root}/page/${page.id}`)
 
 	 if (! pageRec) {
 			pageRec = {
@@ -59,7 +60,7 @@ async responseFacebook (res) {
 
 	 this.setState({ pageSelected: pageRec })
 
-	 const botConfig = await rp.get(`${api_root}/config`)
+	 const botConfig = await rp.get(`${this.api_root}/config`)
 	 this.setState({ botConfig })
 
  }
@@ -75,13 +76,13 @@ async botSelected(config) {
 async saveBot(config) {
 	// create page if it doesnt exist already
 	const page = await rp.post({
-		url: `${api_root}/page/${this.state.pageSelected.id}`,
+		url: `${this.api_root}/page/${this.state.pageSelected.id}`,
 		body: this.state.pageSelected
 	})
 
 	// save the bot config
 	const bot = await rp.post({
-		url: `${api_root}/bot/${this.state.pageSelected.id}`,
+		url: `${this.api_root}/bot/${this.state.pageSelected.id}`,
 		body: config
 	}) 
 
