@@ -24,7 +24,7 @@ class App extends Component {
 		this.saveBot = this.saveBot.bind(this)
 	}
 
-api_root = 'https://bot-react.herokuapp.com/'
+api_root = 'https://bot-react.herokuapp.com'
 
 async responseFacebook (res) {
 	console.log('=======FB RES', res)
