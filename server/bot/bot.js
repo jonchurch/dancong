@@ -1,5 +1,8 @@
 const Botkit = require('botkit')
 
+
+module.exports = (()=> {
+	
 // Create the Botkit controller, which controls all instances of the bot.
 var controller = Botkit.facebookbot({
 	debug: true,
@@ -9,15 +12,18 @@ var controller = Botkit.facebookbot({
 });
 
 
-var normalizedPath = require("path").join(__dirname, "bot/skills");
+var normalizedPath = require("path").join(__dirname, "skills");
 require("fs").readdirSync(normalizedPath).forEach(function(file) {
-  require("./bot/skills/" + file)(controller);
+  require("./skills/" + file)(controller);
 });
 
 // set persistent menu options
-require('./bot/components/thread_settings.js')(controller)
+require('./components/thread_settings.js')(controller)
 
 // Catch-all handler for unmatched input
 controller.hears('(.*)', 'message_received', (bot, message) => {
 	bot.reply(message, "I don't understand")
 })
+
+	return controller
+})()
