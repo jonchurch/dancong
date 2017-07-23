@@ -1,19 +1,15 @@
 {
-  "name": "dancong",
+  "name": "dancong-react-bot-server",
   "author": "Jon Church",
   "version": "0.1.0",
+  "engines": {
+	  "node": "7.10.0"
+  },
   "private": true,
   "dependencies": {
     "body-parser": "~1.17.2",
     "botkit": "https://github.com/jonchurch/botkit/tarball/dancong",
     "express": "~4.15.3",
-    "fb": "^2.0.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-facebook-login": "^3.6.2",
-    "react-router-dom": "^4.1.2",
-    "react-scripts": "1.0.10",
-    "react-select": "^1.0.0-rc.5",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "mongoose": "~4.11.3",
@@ -22,20 +18,7 @@
     "debug": "~2.6.8"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "watch": "concurrently --name 'webpack, stylus' --prefix name 'npm run start' 'npm run styles:watch'",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "styles": "stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
-    "styles:watch": "stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css",
-    "deploy": "ns ./build --cmd 'list ./content -s'"
-  },
-  "devDependencies": {
-    "autoprefixer-stylus": "^0.14.0",
-    "concurrently": "^3.5.0",
-    "ns": "^1.0.2",
-    "react-scripts": "^1.0.10",
-    "stylus": "^0.54.5"
+    "start": "node server/start.js",
+	"heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   }
 }
