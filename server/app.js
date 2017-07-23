@@ -20,7 +20,7 @@ app.use(express.static(path.resolve(__dirname, '../react-ui/build')))
 // Serve all our routes
 app.use('/', routes)
 
-app.get('*', (req, res) => {
+app.get('/login', (req, res) => {
 	res.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'))
 })
 
