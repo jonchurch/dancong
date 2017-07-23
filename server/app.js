@@ -13,10 +13,16 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors())
 
+// Priority serve any static files
+app.use(express.static(path.resolve(__dirname, '../react-ui/build')))
+
+// Serve all our routes
 app.use('/', routes)
 
 controller.webserver = app
-	return app
+
+return app
+
 }
 
 
