@@ -28,7 +28,7 @@ router.post('/page/:id', catchErrors(pageController.createPage))
 
 // Get Page from bot server
 router.get('/page/:id', catchErrors(pageController.getPageById))
-// router.get('/pages', catchErrors(pageController.getAllPages))
+router.get('/pages', catchErrors(pageController.getAllPages))
 
 // Get longlived token from fb
 router.post('/token', catchErrors(async (req, res) => {

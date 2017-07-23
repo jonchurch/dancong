@@ -9,7 +9,7 @@ exports.getAllConfig = async (req, res) => {
 }
 
 exports.createConfig = async (req, res) => {
-	const config = await Bot.findOneAndUpdate({ name: req.body.name},
+	const config = await Config.findOneAndUpdate({ name: req.body.name},
 		req.body,
 		{upsert: true, new: true}
 	)

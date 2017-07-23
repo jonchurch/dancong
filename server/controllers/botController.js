@@ -19,8 +19,10 @@ exports.createBot = async (req, res) => {
 		{upsert: true, new: true}
 	)
 	let page = await Page.findOne({ id: req.params.id})
+	console.log({page})
 
-	if  (! page.bots.find((el) => bot._id === el._id)) {
+	if  (! page.bots.find((el) => bot._id.equals(el._id))) {
+		console.log('=======GETIN REAL PUSHY OVER HERE')
 		page.bots.push(bot._id)
 		page = await page.save()
 	}
