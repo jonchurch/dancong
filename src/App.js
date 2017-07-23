@@ -28,7 +28,14 @@ class App extends Component {
 
 async responseFacebook (res) {
 	console.log('=======FB RES', res)
-	const accounts = await fb.api('me/accounts', { access_token: res.accessToken })
+	// exchange shortlived token for longlived
+	const token = await rp.post({
+		url: `${api_root}/token`,
+		body: {token: res.accessToken}
+	})
+	console.log({token})
+	
+	const accounts = await fb.api('me/accounts', { access_token: token.access_token})
 	// now that I have the pages list
 	// user needs to select their page to manage
 	const pages = accounts.data
@@ -43,42 +50,60 @@ async responseFacebook (res) {
 
 	 const page = this.state.pages.find((ele) => ele.id == e.value)
 	 console.log(this.state.pages)
+	 let pageRec = await rp.get(`${api_root}/page/${page.id}`)
+	 console.log({pageRec})
 
 	 // here is the config to make the subscribe call!
-	 const config = {
-		 id: page.id,
-		 name: page.name,
-		 access_token: page.access_token
+	 if (! pageRec) {
+			pageRec = {
+			id: page.id,
+			name: page.name,
+			access_token: page.access_token,
+			bots: []
+		}
 	 }
 
-	 this.setState({ pageSelected: config })
+	 this.setState({ pageSelected: pageRec })
 
 	 const botConfig = await rp.get(`${api_root}/config`)
 	 console.log({botConfig})
 	 this.setState({ botConfig })
 
-	 
-
-	 // const webhook = await rp.post(`https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=${config.access_token}`)
-	// console.log({webhook})
-
  }
 
 async botSelected(config) {
-	this.setState({ botSelected: config })
+	console.log({config})
+
+	
+	const pageBot = this.state.pageSelected.bots.find((ele) => ele.name === config.name)
+	console.log({pageBot})
+
+	// if (pageBot && pageBot._id) {
+	// 	delete pageBot._id
+	// }
+
+	// populate the form with either empty config or our page's saved config
+	this.setState({ botSelected: pageBot ? pageBot : config })
 }
 
 async saveBot(config) {
 	console.log('heard save bot!', config)
 	// is this a new bot or an update?
 	// const newBot = true
+	// create page if it doesnt exist already
+	const page = await rp.post({
+		url: `${api_root}/page/${this.state.pageSelected.id}`,
+		body: this.state.pageSelected
+	})
+	console.log({page})
 
 	const bot = await rp.post({
-		url: `${api_root}/bot`,
+		url: `${api_root}/bot/${this.state.pageSelected.id}`,
 		body: config
 	}) 
-	const access_token = this.state.pageSelected.access_token
 	console.log({bot})
+
+	const access_token = this.state.pageSelected.access_token
 	const subscribe = await rp.post({
 		url: `https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=${access_token}`
 	})
@@ -98,6 +123,7 @@ state = {
       <div className="App">
 		<FacebookLogin
 			appId='801527833349607'
+			reAuthenticate={true}
 			autoLoad={true}
 			fields="name,email"
 			scope="manage_pages,pages_messaging"

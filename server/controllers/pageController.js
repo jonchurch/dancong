@@ -8,6 +8,21 @@ exports.getPageById = async (req, res) => {
 }
 
 exports.createPage = async (req, res) => {
-	const page = await (new Page(req.body)).save()
+	// const page = await (new Page(req.body)).save()
+	console.log(req.body)
+
+	const page = await Page.findOneAndUpdate({ id: req.params.id },
+		req.body,
+		{upsert: true, new: true}
+	)
+	res.json(page)
+}
+
+exports.updatePage = async (req, res) => {
+	const page = await Page.findOneAndUpdate
+}
+
+exports.getAllPages = async (req, res) => {
+	const page = await Page.find({})
 	res.json(page)
 }
