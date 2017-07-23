@@ -36,7 +36,9 @@ require("fs").readdirSync(normalizedPath).forEach(function(file) {
   require("./skills/" + file)(controller);
 });
 
-
+controller.hears('(.*)', 'message_received', (bot, message) => {
+	bot.reply(message, "I don't understand")
+})
 
 function usage_tip() {
     console.log('~~~~~~~~~~');

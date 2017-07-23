@@ -22,10 +22,11 @@ module.exports = (controller)=> {
 		const greeter = bot.config.bots.greeter
 		console.log({greeter})
 		// if greeing bot is not setup or deactivated, return true so the rest of the triggers will be evaluated
+		console.log('greeting@')
 		if (! greeter || ! greeter.active) {
 			return true
 		}
-		bot.reply(message, `Welcome to ${greeter.config.greeting}!`)
+		bot.reply(message, `Welcome to ${greeter.config.company_name}!`)
 	})
 
 }
