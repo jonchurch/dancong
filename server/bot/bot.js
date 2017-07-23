@@ -20,6 +20,9 @@ require("fs").readdirSync(normalizedPath).forEach(function(file) {
 // set persistent menu options
 require('./components/thread_settings.js')(controller)
 
+// createConfig component
+controller.createConfig = require('./components/getConfig')
+
 // Catch-all handler for unmatched input
 controller.hears('(.*)', 'message_received', (bot, message) => {
 	bot.reply(message, "I don't understand")
