@@ -13,7 +13,7 @@ const requestPromise = require('request-promise')
 const rp = requestPromise.defaults({ json: true })
 // const fb = new Facebook()
 
-const api_root = 'http://localhost:3001'
+const api_root = process.env.API_ROOT
 
 class App extends Component {
 	constructor() {
