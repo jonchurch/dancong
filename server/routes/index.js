@@ -65,24 +65,15 @@ router.get('/facebook/receive', function(req, res) {
 	}
 });
 
-const getConfig = async (obj) => {
-	let data = []
 
-	await Promise.all(obj.entry.map(async page => {
-		const d = await rp.get(`${process.env.API_ROOT}/page/${page.id}`)
-		data.push(d)
-	}))
-	return data
-}
-
-
+// This gets called whenever our server receives a payload from FB
+// this is the same old botkit function, but with getPageConfig call added in to get the page's configuration
 const handleWebhookPayload = async (req, res) => {
-
 
 	var obj = req.body;
 	if (obj.entry) {
 
-	const botConfigs = await getConfig(obj)
+	const botConfigs = await controller.getPageConfig(obj)
 		for (var e = 0; e < obj.entry.length; e++) {
 			// spawn configed bot for this page!
 			const page = botConfigs.find(el => el.id === obj.entry[e].id)

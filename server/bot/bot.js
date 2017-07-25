@@ -1,22 +1,39 @@
 const Botkit = require('botkit')
-
+const rp = require('request-promise')
 
 module.exports = (()=> {
 	
 // Create the Botkit controller, which controls all instances of the bot.
 var controller = Botkit.facebookbot({
-	debug: true,
+	// debug: true,
 	receive_via_postback: true,
 	verify_token: process.env.VERIFY_TOKEN,
 });
 
 
-
 // set persistent menu options
-require('./components/thread_settings.js')(controller)
+require('./thread_settings.js')(controller)
 
 // createConfig component
-controller.createConfig = require('./components/createConfig')
+controller.createConfig = (config) => {
+	return rp.post({
+		url: `${process.env.API_ROOT}/config`,
+		json: true,
+		body: config
+	})
+}
+
+// getPageConfig function
+// takes a FB payload and returns a Promise that resolves once all api calls have resolved
+controller.getPageConfig = async (obj) => {
+	let data = []
+
+	await Promise.all(obj.entry.map(async page => {
+		const d = await rp.get(`${process.env.API_ROOT}/page/${page.id}`)
+		data.push(d)
+	}))
+	return data
+}
 
 // Register all the bots, their triggers, and their configuration
 var normalizedPath = require("path").join(__dirname, "skills");
