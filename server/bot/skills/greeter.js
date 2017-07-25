@@ -18,8 +18,9 @@ module.exports = (controller)=> {
 		// if greeing bot is not setup or deactivated, return true so the rest of the triggers will be evaluated
 		if (greeterConfig && greeterConfig.active) {
 			bot.reply(message, `Welcome to ${greeterConfig.config.company_name}!`)
-		}
+		} else {
 			return true
+		}
 	})
 
 }
