@@ -3,8 +3,6 @@ var Botkit = require('botkit');
 var debug = require('debug')('botkit:main');
 var resolve = require('path').resolve
 
-const { handleWebhookPayload } = require('./bot/forkedMethods')
-
 require('dotenv').config({path: resolve('./.env')})
 
 
