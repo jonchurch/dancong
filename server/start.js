@@ -5,7 +5,7 @@ var resolve = require('path').resolve
 
 const { handleWebhookPayload } = require('./bot/forkedMethods')
 
-// require('dotenv').config({path: resolve('./.env')})
+require('dotenv').config({path: resolve('./.env')})
 
 
 mongoose.connect(process.env.DATABASE, {

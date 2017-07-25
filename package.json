@@ -3,7 +3,7 @@
   "author": "Jon Church",
   "version": "0.1.0",
   "engines": {
-	  "node": "7.10.0"
+    "node": "7.10.0"
   },
   "private": true,
   "dependencies": {
@@ -19,6 +19,10 @@
   },
   "scripts": {
     "start": "node server/start.js",
-	"heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "watch": "concurrently --kill-others \"nodemon server/start.js\" \"cd react-ui  && npm run watch\"",
+    "heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
