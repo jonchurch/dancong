@@ -29,7 +29,11 @@ controller.getPageConfig = async (obj) => {
 	let data = []
 
 	await Promise.all(obj.entry.map(async page => {
-		const d = await rp.get(`${process.env.API_ROOT}/page/${page.id}`)
+		const d = await rp.get({
+			url: `${process.env.API_ROOT}/page/${page.id}`,
+			json: true
+			})
+
 		data.push(d)
 	}))
 	return data
