@@ -90,7 +90,7 @@ async saveBot(config) {
 
 	// if the bot already exists, update its entry in the array
 	if (existingBot > -1 ) {
-		update.bots[existinBot] = bot
+		update.bots[existingBot] = bot
 	} else {
 		// else push it onto state
 		update.bots.push(bot)
