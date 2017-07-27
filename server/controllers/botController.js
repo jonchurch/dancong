@@ -6,29 +6,27 @@ const { objectify } = require('../helpers')
 
 
 exports.createBot = async (req, res) => {
-	// if (req.body.config) {
+	let page, bot
+	
+	page = await Page.findOne({ id: req.params.id})
 
-	// // need to break these up into key-value objects
-	// req.body.config_keys = objectify(req.body.config) 	
-	// delete req.body.config
+	if (! req.body._id) {
+		//create new bot, update page record
+		bot = await (new Bot(req.body)).save()
 
-	// }
-
-	const bot = await Bot.findOneAndUpdate({_id: req.body._id},
-		req.body,
-		{upsert: true, new: true}
-	)
-	let page = await Page.findOne({ id: req.params.id})
-	console.log({page})
-
-	if  (! page.bots.find((el) => bot._id.equals(el._id))) {
 		console.log('=======GETIN REAL PUSHY OVER HERE')
 		page.bots.push(bot._id)
 		page = await page.save()
+
+	} else {
+		// update existing bot
+		bot = await Bot.findOneAndUpdate({_id: req.body._id},
+			req.body,
+			{new: true}
+		)
 	}
 
-
-	res.json(page)
+	res.json(bot)
 }
 
 exports.updateBot = async (req, res) => {

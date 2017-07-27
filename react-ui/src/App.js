@@ -32,7 +32,6 @@ async responseFacebook (res) {
 		body: {token: res.accessToken}
 	})
 	
-	// const accounts = await fb.api('me/accounts', { access_token: token.access_token})
 	const accounts = await rp.get(`https://graph.facebook.com/v2.6/me/accounts?access_token=${token.access_token}`)
 	// now that I have the pages list
 	// user needs to select their page to manage
@@ -64,7 +63,8 @@ async responseFacebook (res) {
  }
 
 async botSelected(config) {
-	
+	delete config._id
+
 	const pageBot = this.state.pageSelected.bots.find((ele) => ele.name === config.name)
 
 	// populate the form with either empty config or our page's saved config
@@ -83,6 +83,19 @@ async saveBot(config) {
 		url: `${api_root}/bot/${this.state.pageSelected.id}`,
 		body: config
 	}) 
+	this.setState({ botSelected: bot })
+	const existingBot = this.state.pageSelected.bots.findIndex(el => el.name === config.name)
+
+	let update = this.state.pageSelected
+
+	// if the bot already exists, update its entry in the array
+	if (existingBot > -1 ) {
+		update.bots[existinBot] = bot
+	} else {
+		// else push it onto state
+		update.bots.push(bot)
+	}
+	this.setState({ pageSelected: update })
 
 	const access_token = this.state.pageSelected.access_token
 	const subscribe = await rp.post({
